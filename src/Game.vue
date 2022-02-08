@@ -10,7 +10,7 @@ const answer = getWordOfTheDay()
 // Board state. Each tile is represented as { letter, state }
 const board = $ref(
   Array.from({ length: 6 }, () =>
-    Array.from({ length: 5 }, () => ({
+    Array.from({ length: 1 }, () => ({
       letter: '',
       state: LetterState.INITIAL
     }))
@@ -33,6 +33,8 @@ const letterStates: Record<string, LetterState> = $ref({})
 // Handle keyboard input.
 let allowInput = true
 
+/*
+
 const onKeyup = (e: KeyboardEvent) => onKey(e.key)
 
 window.addEventListener('keyup', onKeyup)
@@ -41,16 +43,20 @@ onUnmounted(() => {
   window.removeEventListener('keyup', onKeyup)
 })
 
+*/
+
 function onKey(key: string) {
   if (!allowInput) return
-  if (/^[a-zA-Z]$/.test(key)) {
-    fillTile(key.toLowerCase())
+  if (key === 'Enter') {
+    completeRow()
   } else if (key === 'Backspace') {
     clearTile()
-  } else if (key === 'Enter') {
-    completeRow()
+  } else {
+    // if (/^[a-zA-Z]$/.test(key)) 
+    fillTile(key.toLowerCase())
   }
 }
+
 
 function fillTile(letter: string) {
   for (const tile of currentRow) {
@@ -129,7 +135,7 @@ function completeRow() {
     } else {
       // game over :(
       setTimeout(() => {
-        showMessage(answer.toUpperCase(), -1)
+        showMessage(answer, -1)
       }, 1600)
     }
   } else {
@@ -179,10 +185,10 @@ function genResultGrid() {
     </div>
   </Transition>
   <header>
-    <h1>VVORDLE</h1>
+    <h1>WORDLE (BUT CHINESE)</h1>
     <a
       id="source-link"
-      href="https://github.com/yyx990803/vue-wordle"
+      href="https://github.com/naveenarun/chinese-wordle"
       target="_blank"
       >Source</a
     >
@@ -227,7 +233,7 @@ function genResultGrid() {
   box-sizing: border-box;
   --height: min(420px, calc(var(--vh, 100vh) - 310px));
   height: var(--height);
-  width: min(350px, calc(var(--height) / 6 * 5));
+  width: min(350px, calc(var(--height) / 5));
   margin: 0px auto;
 }
 .message {
@@ -248,7 +254,7 @@ function genResultGrid() {
 }
 .row {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   grid-gap: 5px;
 }
 .tile {

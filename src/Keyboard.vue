@@ -10,9 +10,9 @@ defineEmits<{
 }>()
 
 const rows = [
-  'qwertyuiop'.split(''),
-  'asdfghjkl'.split(''),
-  ['Enter', ...'zxcvbnm'.split(''), 'Backspace']
+  ['的', '一', '是', '不', '了', '在', '人', '有', '我', '他'],
+  ['这', '个', '们', '中', '来', '上', '大', '为', '和'],
+  ['Enter', '国', '地', '到', '以', '说', '时', 'Backspace']
 ]
 </script>
 
